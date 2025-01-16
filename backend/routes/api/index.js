@@ -1,4 +1,5 @@
 import express from "express"
+import mailRoutes from "./mailRoutes.js"
 
 const router = express.Router()
 
@@ -8,5 +9,8 @@ const api = router.get("/", (req, res) => {
         message: "Mailer API V1"
     })
 })
+
+// mail routes
+router.use("/mail", mailRoutes)
 
 export default api
