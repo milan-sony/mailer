@@ -6,7 +6,7 @@ const mailSchema = new mongoose.Schema({
         "default": [],
         required: true
     },
-    mailContent:{
+    mailContent: {
         type: String,
         required: true
     }
