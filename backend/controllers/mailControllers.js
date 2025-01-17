@@ -1,8 +1,9 @@
 import Mail from "../models/mailModel.js"
 
+// compose mail
 export const composeMails = async (req, res) => {
     try {
-        const { mails } = req.body
+        const { mails, mailContent } = req.body
 
         if (!mails) {
             return res.status(400).json({
@@ -12,14 +13,16 @@ export const composeMails = async (req, res) => {
         }
 
         const newMail = new Mail({
-            mails: mails
+            mails: mails,
+            mailContent: mailContent
         })
 
         if (newMail) {
             await newMail.save()
             return res.status(201).json({
                 status: 201,
-                mails: newMail.mails
+                mails: newMail.mails,
+                mailContent: newMail.mailContent
             })
         } else {
             return res.status(400).json({
@@ -35,4 +38,9 @@ export const composeMails = async (req, res) => {
             error: error.message
         })
     }
+}
+
+// send mail
+export const sendmail = () => {
+
 }

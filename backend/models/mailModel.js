@@ -5,6 +5,10 @@ const mailSchema = new mongoose.Schema({
         type: Array,
         "default": [],
         required: true
+    },
+    mailContent:{
+        type: String,
+        required: true
     }
 },
     {
