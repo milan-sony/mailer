@@ -6,6 +6,10 @@ const mailSchema = new mongoose.Schema({
         "default": [],
         required: true
     },
+    mailSubject: {
+        type: String,
+        required: true
+    },
     mailContent: {
         type: String,
         required: true

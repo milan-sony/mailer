@@ -1,9 +1,10 @@
 import Mail from "../models/mailModel.js"
+import mailManager from "../utils/mailManager.js"
 
 // compose mail
 export const composeMails = async (req, res) => {
     try {
-        const { mails, mailContent } = req.body
+        const { mails, mailSubject, mailContent } = req.body
 
         if (!mails) {
             return res.status(400).json({
@@ -14,6 +15,7 @@ export const composeMails = async (req, res) => {
 
         const newMail = new Mail({
             mails: mails,
+            mailSubject: mailSubject,
             mailContent: mailContent
         })
 
@@ -22,6 +24,7 @@ export const composeMails = async (req, res) => {
             return res.status(201).json({
                 status: 201,
                 mails: newMail.mails,
+                mailSubject: newMail.mailSubject,
                 mailContent: newMail.mailContent
             })
         } else {
@@ -45,10 +48,17 @@ export const sendmails = async (req, res) => {
     try {
         const mailDatas = await Mail.find({}).select('-_id -__v')
         console.log("Mail data's: ", mailDatas)
-        return res.status(200).json({
-            status: 200,
-            mailDatas: mailDatas
-        })
+
+        if (mailDatas) {
+            mailManager(mailDatas)
+            return res.status(200).json({
+                status: 200,
+                mailDatas: mailDatas
+            })
+        } else {
+            console.log("Something went wrong setting the mail data's")
+        }
+
     } catch (error) {
         console.log("Error getting all mail data's, ", error.message)
         return res.status(500).json({
