@@ -1,5 +1,5 @@
 import express from "express";
-import { composeMails } from "../../controllers/mailControllers.js";
+import { composeMails, sendmails } from "../../controllers/mailControllers.js";
 
 const mailRoutes = express.Router()
 
@@ -7,6 +7,6 @@ const mailRoutes = express.Router()
 mailRoutes.post("/composemail", composeMails)
 
 // send mail
-// mailRoutes.post("/sendmail")
+mailRoutes.get("/sendmail", sendmails)
 
 export default mailRoutes

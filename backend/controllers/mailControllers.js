@@ -41,6 +41,20 @@ export const composeMails = async (req, res) => {
 }
 
 // send mail
-export const sendmail = () => {
-
+export const sendmails = async (req, res) => {
+    try {
+        const mailDatas = await Mail.find({}).select('-_id -__v')
+        console.log("Mail data's: ", mailDatas)
+        return res.status(200).json({
+            status: 200,
+            mailDatas: mailDatas
+        })
+    } catch (error) {
+        console.log("Error getting all mail data's, ", error.message)
+        return res.status(500).json({
+            status: 500,
+            message: "Error getting all mail data's",
+            error: error.message
+        })
+    }
 }
