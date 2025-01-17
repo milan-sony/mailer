@@ -10,7 +10,7 @@ const mailManager = async (maildatas) => {
 
         let mailContent = maildatas[0].mailContent
         console.log("Mail content: ", mailContent)
-        
+
         await mailSender({
             to: maillists,
             subject: mailSubject,
