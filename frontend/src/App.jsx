@@ -1,10 +1,12 @@
 import React from 'react'
+import Router from './router/Router'
+
 
 function App() {
   return (
-    <div>
-        <p className='text-2xl'>Hello world</p>
-    </div>
+    <>
+      <Router />
+    </>
   )
 }
 
