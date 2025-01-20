@@ -15,7 +15,7 @@ const mailManager = async (maildatas) => {
             to: maillists,
             subject: mailSubject,
             message: `
-                    <p>Hi</p> 
+                    <p>Hi</p>
                     <br>
                     <p>${mailContent}</p>
                     `

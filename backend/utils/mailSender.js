@@ -4,17 +4,17 @@ const mailSender = async (options) => {
     try {
         // Create a transporter to send emails
         const transporter = nodemailer.createTransport({
-            host: process.env.SMPT_HOST,
-            port: process.env.SMPT_PORT,
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
             auth: {
-                user: process.env.SMPT_MAIL,
-                pass: process.env.SMPT_APP_PASSWORD
+                user: process.env.SMTP_MAIL,
+                pass: process.env.SMTP_APP_PASSWORD
             }
         })
 
         // send emails to the users
         const mail = {
-            from: process.env.SMPT_MAIL,
+            from: process.env.SMTP_MAIL,
             to: options.to,
             subject: options.subject,
             html: options.message
