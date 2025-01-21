@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Upload } from 'lucide-react'
 
 function Homepage() {
     const [mails, setMails] = useState([])
 
+    const [formData, setFormData] = useState({
+        mailIds: [],
+        mailSubject: "",
+        mailBody: ""
+    })
+
+    // Sync formData.mailIds with mails state
+    // The formData state stores the email IDs (mailIds), subject, and body, but the state for mailIds is not updated when the mails array changes. You need to update formData.mailIds whenever mails changes to keep everything in sync.
+    useEffect(() => {
+        setFormData((prevFormData) => ({ ...prevFormData, mailIds: mails }));
+    }, [mails]);
+
     // gets mail id's
-    const handleChange = (e) => {
+    const handleEmail = (e) => {
         if (e.key !== 'Enter') return
         const value = e.target.value
         if (!value.trim()) return
@@ -18,9 +30,14 @@ function Homepage() {
         setMails(mails.filter((el, i) => i !== index))
     }
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
     // form submit
-    const handleSubmit = (e) => {
+    const handleFormSubmit = (e) => {
         e.preventDefault()
+        console.log("Form values: ", formData)
     }
 
     return (
@@ -33,7 +50,7 @@ function Homepage() {
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
                             <p className="text-black mb-4 text-sm font-Open-Sans"><b>From: name@domain.com</b></p>
-                            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                            <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                                 <div className="space-y-2 mb-2">
                                     <label className="text-black mb-2 block">To: (Enter the mail id's)</label>
                                     <div className='bg-gray-100 max-h-40 overflow-y-auto rounded-md p-2'>
@@ -46,7 +63,7 @@ function Homepage() {
                                                     </div>
                                                 ))
                                             }
-                                            <input type="text" placeholder="Enter mail id's" className='outline-none border-none rounded-md bg-white p-1 text-black' onKeyDown={handleChange} />
+                                            <input type="text" placeholder="Enter mail id's" className='outline-none border-none rounded-md bg-white p-1 text-black' onKeyDown={handleEmail} />
                                         </div>
                                     </div>
                                 </div>
@@ -59,18 +76,17 @@ function Homepage() {
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Subject</label>
-                                        <input type="text" name="email" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" placeholder="Add a subject" />
+                                        <input type="text" name="mailSubject" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" placeholder="Add a subject" value={formData.mailSubject} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Body</label>
-                                        <textarea name="email" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" />
+                                        <textarea name="mailBody" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" value={formData.mailBody} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium'>Compose mail
-                                    </button>
+                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium'>Compose mail</button>
                                 </div>
                             </form>
                         </div>
