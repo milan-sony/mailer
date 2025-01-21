@@ -41,7 +41,7 @@ function Homepage() {
         const { mailIds, mailSubject, mailBody } = formData // destructure formdata
 
         // check for empty fields
-        if (!mailIds) {
+        if (!mailIds[0]) {
             return toast.error("Please enter mail id's")
         }
         if (!mailSubject) {
