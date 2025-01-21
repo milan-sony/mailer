@@ -24,6 +24,10 @@ function Homepage() {
         if (!value.trim()) {
             return toast.error("Please enter mail id's")
         }
+        // check duplicate email ids
+        if (mails.includes(value.trim())) {
+            return toast.error("This email ID is already added");
+        }
         setMails([...mails, value])
         e.target.value = ""
     }
@@ -59,6 +63,12 @@ function Homepage() {
         const isFormValidate = validateForm()
         if (isFormValidate === true) {
             console.log("Form values: ", formData)
+            setMails([]);  // Reset mails after submission
+            setFormData({
+                mailIds: [],
+                mailSubject: "",
+                mailBody: ""
+            });  // Reset form data
         }
     }
 
