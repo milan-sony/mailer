@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Upload } from 'lucide-react'
 import toast from 'react-hot-toast'
-import React from 'react'
 import { mailControllerStore } from '../../store/mailControllerStore'
 
 function Homepage() {
 
-    const { isMailComposed, isMailSendSuccessfully } = mailControllerStore()
+    const { isMailComposed, composeMail  } = mailControllerStore()
 
     const [mails, setMails] = useState([])
 
@@ -68,6 +67,7 @@ function Homepage() {
         const isFormValidate = validateForm()
         if (isFormValidate === true) {
             console.log("Form values: ", formData)
+            composeMail(formData)
             setMails([]);  // Reset mails after submission
             setFormData({
                 mailIds: [],

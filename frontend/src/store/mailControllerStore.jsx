@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../lib/Axios'
+import toast from 'react-hot-toast'
 
 export const mailControllerStore = create((set) => ({
     isMailComposed: false,
