@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Upload } from 'lucide-react'
 
 function Homepage() {
     return (
@@ -33,6 +33,12 @@ function Homepage() {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="mt-6 mb-2 w-full flex justify-end">
+                                    <button type='submit' className='p-2 text-center flex justify-between text-white text-sm bg-gray-600 rounded hover:text-white hover:bg-black capitalize font-medium'><Upload className='size-5 mr-1'/>upload file
+                                    </button>
+                                </div>
+
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Subject:</label>
@@ -46,12 +52,8 @@ function Homepage() {
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium'>Create Account
+                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium'>Send mail
                                     </button>
-                                    <div className="flex justify-between pt-5">
-                                        <p className="text-gray-600 text-sm dark:text-white font-Open-Sans">Don't have an account? <Link to="/signup" className='text-black dark:text-white text-sm font-semibold underline hover:text-gray-600 font-Open-Sans'>Signup</Link></p>
-                                        <Link to="/" className='text-black dark:text-white text-sm font-semibold underline hover:text-gray-600 font-Open-Sans'>Go back</Link>
-                                    </div>
                                 </div>
                             </form>
                         </div>
