@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Upload } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 function Homepage() {
     const [mails, setMails] = useState([])
@@ -20,7 +21,9 @@ function Homepage() {
     const handleEmail = (e) => {
         if (e.key !== 'Enter') return
         const value = e.target.value
-        if (!value.trim()) return
+        if (!value.trim()) {
+            return toast.error("Please enter mail id's")
+        }
         setMails([...mails, value])
         e.target.value = ""
     }
@@ -34,10 +37,29 @@ function Homepage() {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const validateForm = () => {
+        const { mailIds, mailSubject, mailBody } = formData // destructure formdata
+
+        // check for empty fields
+        if (!mailIds) {
+            return toast.error("Please enter mail id's")
+        }
+        if (!mailSubject) {
+            return toast.error("Please add a subject")
+        }
+        if (!mailBody) {
+            return toast.error("Please enter the body content")
+        }
+        return true
+    }
+
     // form submit
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        console.log("Form values: ", formData)
+        const isFormValidate = validateForm()
+        if (isFormValidate === true) {
+            console.log("Form values: ", formData)
+        }
     }
 
     return (
