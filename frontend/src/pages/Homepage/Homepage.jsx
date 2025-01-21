@@ -7,18 +7,20 @@ function Homepage() {
 
     const { isMailComposed, composeMail  } = mailControllerStore()
 
+    console.log("Home is mail composed", isMailComposed)
+
     const [mails, setMails] = useState([])
 
     const [formData, setFormData] = useState({
-        mailIds: [],
+        mails: [],
         mailSubject: "",
-        mailBody: ""
+        mailContent: ""
     })
 
     // Sync formData.mailIds with mails state
     // The formData state stores the email IDs (mailIds), subject, and body, but the state for mailIds is not updated when the mails array changes. You need to update formData.mailIds whenever mails changes to keep everything in sync.
     useEffect(() => {
-        setFormData((prevFormData) => ({ ...prevFormData, mailIds: mails }));
+        setFormData((prevFormData) => ({ ...prevFormData, mails: mails }));
     }, [mails]);
 
     // gets mail id's
@@ -46,16 +48,16 @@ function Homepage() {
     }
 
     const validateForm = () => {
-        const { mailIds, mailSubject, mailBody } = formData // destructure formdata
+        const { mails, mailSubject, mailContent } = formData // destructure formdata
 
         // check for empty fields
-        if (!mailIds[0]) {
+        if (!mails[0]) {
             return toast.error("Please enter mail id's")
         }
         if (!mailSubject) {
             return toast.error("Please add a subject")
         }
-        if (!mailBody) {
+        if (!mailContent) {
             return toast.error("Please enter the body content")
         }
         return true
@@ -70,9 +72,9 @@ function Homepage() {
             composeMail(formData)
             setMails([]);  // Reset mails after submission
             setFormData({
-                mailIds: [],
+                mails: [],
                 mailSubject: "",
-                mailBody: ""
+                mailContent: ""
             });  // Reset form data
         }
     }
@@ -119,7 +121,7 @@ function Homepage() {
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Body</label>
-                                        <textarea name="mailBody" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" value={formData.mailBody} onChange={handleChange} />
+                                        <textarea name="mailContent" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" value={formData.mailContent} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div className="mt-6">

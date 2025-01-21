@@ -8,6 +8,7 @@ export const mailControllerStore = create((set) => ({
 
     composeMail: async (data) => {
         try {
+            console.log("Data: ", data)
             const res = await axiosInstance.post("/mail/composemail", data)
             set({ isMailComposed: true })
             console.log("Res data: ", res.data)
@@ -15,8 +16,6 @@ export const mailControllerStore = create((set) => ({
         } catch (error) {
             console.error("Error composing the mail, ", error.response.data.message)
             return toast.error("Error composing the mail")
-        } finally {
-            set({ isMailComposed: false })
         }
     },
 
