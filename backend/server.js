@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import routes from "./routes/index.js"
 import connectDB from "./configs/db.js"
 import bodyParser from "body-parser"
+import cors from "cors"
 
 // config dot env
 dotenv.config()
@@ -15,6 +16,12 @@ app.use(bodyParser.json());
 
 // connect with DB
 connectDB()
+
+// cors
+app.use(cors({
+    origin: "http://localhost:5173", // the server can be really strict, and specify that only one origin can access it
+    credentials: true // allows to send cookies and authorization headers with the request
+}))
 
 // base URL
 app.use("/", routes)
