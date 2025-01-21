@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Upload } from 'lucide-react'
 import toast from 'react-hot-toast'
+import React from 'react'
+import { mailControllerStore } from '../../store/mailControllerStore'
 
 function Homepage() {
+
+    const { isMailComposed, isMailSendSuccessfully } = mailControllerStore()
+
     const [mails, setMails] = useState([])
 
     const [formData, setFormData] = useState({
@@ -118,7 +123,16 @@ function Homepage() {
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium'>Compose mail</button>
+                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium' disabled={isMailComposed}>
+                                        {/* toggle btn based on status */}
+                                        {
+                                            isMailComposed ? (
+                                                <span className='animate-pulse'>Composing mail...</span>
+                                            ) : (
+                                                "Compose mail"
+                                            )
+                                        }
+                                    </button>
                                 </div>
                             </form>
                         </div>
