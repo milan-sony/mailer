@@ -41,13 +41,13 @@ function Homepage() {
 
                                 <div className="space-y-2 mb-2">
                                     <div>
-                                        <label className="text-black mb-2 block">Subject:</label>
+                                        <label className="text-black mb-2 block">Subject</label>
                                         <input type="text" name="email" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" placeholder="Add a subject" />
                                     </div>
                                 </div>
                                 <div className="space-y-2 mb-2">
                                     <div>
-                                        <label className="text-black mb-2 block">Body:</label>
+                                        <label className="text-black mb-2 block">Body</label>
                                         <textarea name="email" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" />
                                     </div>
                                 </div>
