@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import routes from "./routes/index.js"
-import connectDB from "./configs/db.js"
+// import connectDB from "./configs/db.js"
 import bodyParser from "body-parser"
 import cors from "cors"
 
@@ -15,7 +15,7 @@ const app = express()
 app.use(bodyParser.json());
 
 // connect with DB
-connectDB()
+// connectDB()
 
 // cors
 app.use(cors({
