@@ -9,7 +9,21 @@ export const sendmails = async (req, res) => {
         if (!mails) {
             return res.status(400).json({
                 status: 400,
-                message: "MaiiId are required"
+                message: "Maii Id's are required"
+            })
+        }
+
+        if (!mailSubject) {
+            return res.status(400).json({
+                status: 400,
+                message: "Maii subject is required"
+            })
+        }
+
+        if (!mailContent) {
+            return res.status(400).json({
+                status: 400,
+                message: "Maii content is required"
             })
         }
 
@@ -30,11 +44,11 @@ export const sendmails = async (req, res) => {
         } else {
             return res.status(400).json({
                 status: 400,
-                message: "mail id's not saved"
+                message: "No mail found!"
             })
         }
     } catch (error) {
-        console.error("Error saving the mail id's, ", error.message)
+        console.error("Error: something went wrong with send mail, ", error.message)
         return res.status(500).json({
             status: 500,
             message: "Internal server error",
