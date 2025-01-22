@@ -5,9 +5,7 @@ import { mailControllerStore } from '../../store/mailControllerStore'
 
 function Homepage() {
 
-    const { isMailComposed, composeMail  } = mailControllerStore()
-
-    console.log("Homepage - isMailComposed", isMailComposed)
+    const { isMailSendSuccessfully, sendMail } = mailControllerStore()
 
     const [mails, setMails] = useState([])
 
@@ -23,22 +21,35 @@ function Homepage() {
         setFormData((prevFormData) => ({ ...prevFormData, mails: mails }));
     }, [mails]);
 
-    // gets mail id's
+    // Email validation regex pattern
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    // Handle email input validation
     const handleEmail = (e) => {
         if (e.key !== 'Enter') return
+
         const value = e.target.value
+
+        // Check empty field
         if (!value.trim()) {
             return toast.error("Please enter mail id's")
         }
-        // check duplicate email ids
+
+        // Check if email matches the regex pattern
+        if (!emailRegex.test(value)) {
+            return toast.error("Please enter a valid email address");
+        }
+
+        // Check duplicate email ids
         if (mails.includes(value.trim())) {
             return toast.error("This email ID is already added");
         }
+
         setMails([...mails, value])
         e.target.value = ""
     }
 
-    // remove mail id's
+    // Remove mail id's
     const removeMail = (index) => {
         setMails(mails.filter((el, i) => i !== index))
     }
@@ -50,7 +61,7 @@ function Homepage() {
     const validateForm = () => {
         const { mails, mailSubject, mailContent } = formData // destructure formdata
 
-        // check for empty fields
+        // Check for empty fields
         if (!mails[0]) {
             return toast.error("Please enter mail id's")
         }
@@ -63,13 +74,12 @@ function Homepage() {
         return true
     }
 
-    // form submit
+    // Form submit
     const handleFormSubmit = (e) => {
         e.preventDefault()
         const isFormValidate = validateForm()
         if (isFormValidate === true) {
-            console.log("Form values: ", formData)
-            composeMail(formData)
+            sendMail(formData)
             setMails([]);  // Reset mails after submission
             setFormData({
                 mails: [],
@@ -81,7 +91,6 @@ function Homepage() {
 
     return (
         <div className="w-full h-screen">
-            {/* mail form */}
             <div className="bg-slate-100">
                 <div className='w-full h-screen'>
                     <div className="contain pt-10">
@@ -125,13 +134,13 @@ function Homepage() {
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium' disabled={isMailComposed}>
-                                        {/* toggle btn based on status */}
+                                    <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium' disabled={isMailSendSuccessfully}>
+                                        {/* toggle the btn based on status */}
                                         {
-                                            isMailComposed ? (
-                                                <span className='animate-pulse'>Composing mail...</span>
+                                            isMailSendSuccessfully ? (
+                                                <span className='animate-pulse'>Sending mail...</span>
                                             ) : (
-                                                "Compose mail"
+                                                "Send mail"
                                             )
                                         }
                                     </button>
