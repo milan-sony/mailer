@@ -48,7 +48,7 @@ export const sendmails = async (req, res) => {
             })
         }
     } catch (error) {
-        console.error("Error: something went wrong with sending the mail, ", error.message)
+        console.error("Error: something went wrong to sent the mail, ", error.message)
         return res.status(500).json({
             status: 500,
             message: "Internal server error",
