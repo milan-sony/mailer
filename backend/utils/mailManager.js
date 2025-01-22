@@ -2,7 +2,6 @@ import mailSender from "./mailSender.js"
 
 const mailManager = async (maildatas) => {
     try {
-        console.log("maildatas", maildatas)
         let maillists = maildatas.mails
         let mailSubject = maildatas.mailSubject
         let mailContent = maildatas.mailContent
@@ -20,7 +19,7 @@ const mailManager = async (maildatas) => {
                     <P><b>Address</b></p>
                     `
         })
-        console.log("Mail's sent successfully")
+        console.log(`\n✔️  Mail's sent successfully`)
     } catch (error) {
         console.error("An error occured at sending mail: ", error.message)
     }

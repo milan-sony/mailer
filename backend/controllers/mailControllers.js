@@ -20,7 +20,6 @@ export const sendmails = async (req, res) => {
         })
 
         if (newMail) {
-            console.log("New mail", newMail)
             mailManager(newMail)
             return res.status(201).json({
                 status: 201,
@@ -43,29 +42,3 @@ export const sendmails = async (req, res) => {
         })
     }
 }
-
-// send mail
-// export const sendmails = async (req, res) => {
-//     try {
-//         const mailDatas = await Mail.find({}).select('-_id -__v')
-//         console.log("Mail data's: ", mailDatas)
-
-//         if (mailDatas) {
-//             mailManager(mailDatas)
-//             return res.status(200).json({
-//                 status: 200,
-//                 mailDatas: mailDatas
-//             })
-//         } else {
-//             console.log("Something went wrong setting the mail data's")
-//         }
-
-//     } catch (error) {
-//         console.log("Error getting all mail data's, ", error.message)
-//         return res.status(500).json({
-//             status: 500,
-//             message: "Error getting all mail data's",
-//             error: error.message
-//         })
-//     }
-// }
