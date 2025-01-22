@@ -7,7 +7,7 @@ function Homepage() {
 
     const { isMailComposed, composeMail  } = mailControllerStore()
 
-    console.log("Home is mail composed", isMailComposed)
+    console.log("Homepage - isMailComposed", isMailComposed)
 
     const [mails, setMails] = useState([])
 

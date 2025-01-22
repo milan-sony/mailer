@@ -10,14 +10,14 @@ function Router() {
 
     const { isMailComposed, isMailSendSuccessfully } = mailControllerStore()
 
-    console.log("mail composed", isMailComposed)
-    console.log("mail send success", isMailSendSuccessfully)
+    console.log("Router - isMailComposed", isMailComposed)
+    console.log("Router - isMailSendSuccessfully", isMailSendSuccessfully)
 
     return (
         <Routes>
             <Route path="/" element={<Indexpage />} />
-            <Route path='/homepage' element={isMailComposed ? <Sendmailpage /> : <Homepage />} />
-            <Route path='/sendmail' element={isMailSendSuccessfully ? <Navigate to={"/"} /> : <Navigate to={"/homepage"} />} />
+            <Route path='/homepage' element={isMailComposed ? <Navigate to={"/sendmail"} /> : <Homepage />} />
+            <Route path='/sendmail' element={isMailComposed ? <Sendmailpage/> : <Navigate to={"/"} />} />
             <Route path="*" element={<Nopage />} />
         </Routes>
     )
