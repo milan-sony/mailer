@@ -34,13 +34,7 @@ export const sendmails = async (req, res) => {
         })
 
         if (newMail) {
-            mailManager(newMail)
-            return res.status(201).json({
-                status: 201,
-                mails: newMail.mails,
-                mailSubject: newMail.mailSubject,
-                mailContent: newMail.mailContent
-            })
+            mailManager(newMail, res)
         } else {
             return res.status(400).json({
                 status: 400,

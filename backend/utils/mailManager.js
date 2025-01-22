@@ -1,6 +1,6 @@
 import mailSender from "./mailSender.js"
 
-const mailManager = async (maildatas) => {
+const mailManager = async (maildatas, res) => {
     try {
         let maillists = maildatas.mails
         let mailSubject = maildatas.mailSubject
@@ -18,10 +18,14 @@ const mailManager = async (maildatas) => {
                     <p><b>Phone: XXXXXXXXXX</b></p>
                     <P><b>Address</b></p>
                     `
-        })
-        console.log(`\n✔️  Mail's sent successfully`)
+        }, res)
     } catch (error) {
-        console.error("An error occured at sending mail: ", error.message)
+        console.error("An error occured at composing mail: ", error.message)
+        return res.status(500).json({
+            status: 500,
+            message: "An error occured at composing mail",
+            error: error.message
+        })
     }
 }
 
