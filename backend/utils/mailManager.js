@@ -2,9 +2,10 @@ import mailSender from "./mailSender.js"
 
 const mailManager = async (maildatas) => {
     try {
-        let maillists = maildatas[0].mails
-        let mailSubject = maildatas[0].mailSubject
-        let mailContent = maildatas[0].mailContent
+        console.log("maildatas", maildatas)
+        let maillists = maildatas.mails
+        let mailSubject = maildatas.mailSubject
+        let mailContent = maildatas.mailContent
 
         await mailSender({
             to: maillists,
@@ -21,7 +22,7 @@ const mailManager = async (maildatas) => {
         })
         console.log("Mail's sent successfully")
     } catch (error) {
-        console.error("An error occured at sending OTP via mail: ", error.message)
+        console.error("An error occured at sending mail: ", error.message)
     }
 }
 
