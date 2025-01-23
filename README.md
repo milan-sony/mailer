@@ -75,7 +75,7 @@ SMTP_MAIL = name@domain.com
 SMTP_APP_PASSWORD = your app password
 ```
 
-> [Create app password](https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237)
+> 💡 [Create app password](https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237)
 
 
 Run the project
