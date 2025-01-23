@@ -15,8 +15,9 @@ const mailManager = async (maildatas, res) => {
                     <p>${mailContent}</p>
                     <br>
                     <p><b>With regard's<b></p>
+                    <p><b>Uniware Technologies</b></p>
+                    <p><b>10th Cross, Margosa Road, Malleswaram, Bengaluru, Karnataka 560003, India<b></p>
                     <p><b>Phone: XXXXXXXXXX</b></p>
-                    <P><b>Address</b></p>
                     `
         }, res)
     } catch (error) {
