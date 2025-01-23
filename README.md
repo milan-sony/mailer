@@ -1,8 +1,8 @@
-# Mailer
+# 📧 Mailer
 
 A simple yet flexible and easy-to-use email automation platform built with the MERN stack (MongoDB, Express.js, React, Node.js). It helps businesses to easily create, manage, and automate email campaigns with features like personalized content, scheduling, and system integration. Users can save time by creating reusable email templates for recurring tasks, reducing manual work and mistakes. The platform is designed to improve productivity, consistency, and scalability, making it suitable for different business needs
 
-## Prerequisite
+## 🛠 Prerequisite
 
 `node version: >=18.0.0 <22.11.0`
 
@@ -10,7 +10,7 @@ A simple yet flexible and easy-to-use email automation platform built with the M
 
 > 💡 You can use `nvm` to install multiple node versions on your machine [Read about nvm](https://stackoverflow.com/questions/53785383/how-to-change-node-js-version-with-nvm)
 
-## Run locally
+## 🏃🏻‍♂💨 Run locally
 
 Clone the project
 
@@ -24,7 +24,7 @@ Go to the project directory
 cd mailer
 ```
 
-## Frontend
+## ✨ Frontend
 
 ```
 cd frontend
@@ -50,7 +50,7 @@ Run the project
 npm run dev
 ```
 
-## Backend
+## ⚙ Backend
 
 ```
 cd backend
@@ -84,18 +84,18 @@ Run the project
 npm run dev
 ```
 
-## Tech Stack
+## 👨🏻‍💻 Tech Stack
 
 **Client:** React, Zustand, TailwindCSS
 
 **Server:** Node, Express, Nodemailer
 
-## Used By
+## ⭐ Used By
 
 This project is used by the following companies:
 
 - Uniware Technologies
 
-## Feedback
+## 🤗 Feedback
 
 If you have any feedback, please reach me out at milansonyofficial@gmail.com
