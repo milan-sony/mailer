@@ -1,6 +1,6 @@
 # Mailer
 
-A simple mail automation build for an company on `MERN Stack`
+A simple mail automation build for a company on `MERN Stack`
 
 ## Prerequisite
 
