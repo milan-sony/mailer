@@ -16,6 +16,7 @@ const mailManager = async (maildatas, res) => {
                     <br>
                     <p><b>With regard's<b></p>
                     <p><b>Uniware Technologies</b></p>
+                    <img src = "cid:logo" style="width:150px;height:auto;" alt="logo"/>
                     <p><b>10th Cross, Margosa Road, Malleswaram, Bengaluru, Karnataka 560003, India<b></p>
                     <p><b>Phone: XXXXXXXXXX</b></p>
                     `

@@ -1,6 +1,12 @@
 import nodemailer from "nodemailer"
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const mailSender = async (options, res) => {
+    // Get the current directory of the module
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename)
+
     try {
         // Create a transporter to send emails
         const transporter = nodemailer.createTransport({
@@ -17,7 +23,12 @@ const mailSender = async (options, res) => {
             from: process.env.SMTP_MAIL,
             to: options.to,
             subject: options.subject,
-            html: options.message
+            html: options.message,
+            attachments: [{
+                filename: 'uniware_logo.png',
+                path: path.join(__dirname, '/../assets/images/uniware_logo.png'),
+                cid: 'logo'
+            }]
         }
 
         if (mail) {
