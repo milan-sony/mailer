@@ -1,6 +1,6 @@
 # Mailer
 
-A simple yet flexible email automation platform using the MERN stack that can be customized based on the needs of the company. The platform allows for creating, managing, and automating email campaigns while being able to adapt to different use cases and business requirements
+A simple yet flexible and easy-to-use email automation platform built with the MERN stack (MongoDB, Express.js, React, Node.js). It helps businesses to easily create, manage, and automate email campaigns with features like personalized content, scheduling, and system integration. Users can save time by creating reusable email templates for recurring tasks, reducing manual work and mistakes. The platform is designed to improve productivity, consistency, and scalability, making it suitable for different business needs
 
 ## Prerequisite
 
@@ -80,3 +80,19 @@ Run the project
 ```
 npm run dev
 ```
+
+## Tech Stack
+
+**Client:** React, Zustand, TailwindCSS
+
+**Server:** Node, Express, Nodemailer
+
+## Used By
+
+This project is used by the following companies:
+
+- Uniware Technologies
+
+## Feedback
+
+If you have any feedback, please reach me out at milansonyofficial@gmail.com
