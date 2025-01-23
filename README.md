@@ -8,7 +8,7 @@ A simple yet flexible and easy-to-use email automation platform built with the M
 
 `npm version: >=8.0.0 <10.9.0`
 
-> 💡 You can use `nvm` to install multiple node versions on your machine [Read about nvm](Read about nvm)
+> 💡 You can use `nvm` to install multiple node versions on your machine [Read about nvm](https://stackoverflow.com/questions/53785383/how-to-change-node-js-version-with-nvm)
 
 ## Run locally
 
