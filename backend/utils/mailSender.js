@@ -25,17 +25,20 @@ const mailSender = async (options, res) => {
             cid: 'logo'
         }
 
+        console.log("mail Attachments:", options.mailAttachments)
+
         // Send emails to the users
         const mail = {
             from: process.env.SMTP_MAIL,
             to: options.to,
             subject: options.subject,
             html: options.message,
-            attachments: [{
-                filename: 'uniware_logo.png',
-                path: path.join(__dirname, '/../assets/images/uniware_logo.png'),
-                cid: 'logo'
-            }]
+            attachments: [
+                options.mailAttachments.map(file =>({
+                    filename: file.filename,
+                    path: path.join(__dirname, 'storage', file.filename)
+                })), embeddedImage
+            ]
         }
 
         if (mail) {

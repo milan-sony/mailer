@@ -22,7 +22,8 @@ const mailManager = async (maildatas, res) => {
                     <img src = "cid:logo" style="width:150px;height:auto;" alt="logo"/>
                     <p><b>10th Cross, Margosa Road, Malleswaram, Bengaluru, Karnataka 560003, India<b></p>
                     <p><b>Phone: XXXXXXXXXX</b></p>
-                    `
+                    `,
+            mailAttachments: mailAttachments
         }, res)
     } catch (error) {
         console.error("An error occured at composing mail: ", error.message)
