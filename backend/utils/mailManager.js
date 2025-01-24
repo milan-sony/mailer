@@ -7,7 +7,7 @@ const mailManager = async (maildatas, res) => {
         let mailContent = maildatas.mailContent
         let mailAttachments = maildatas.attachments
 
-        console.log("Mail attachments:", mailAttachments)
+        console.log("Attachments:", mailAttachments)
 
         await mailSender({
             to: maillists,

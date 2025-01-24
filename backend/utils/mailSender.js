@@ -26,6 +26,7 @@ const mailSender = async (options, res) => {
         }
 
         console.log("mail Attachments:", options.mailAttachments)
+        console.log("dirName: ", __dirname)
 
         // Send emails to the users
         const mail = {
@@ -34,10 +35,11 @@ const mailSender = async (options, res) => {
             subject: options.subject,
             html: options.message,
             attachments: [
-                options.mailAttachments.map(file =>({
+                ...options.mailAttachments.map(file => ({ // The spread operator (...) ensures that the individual objects for each attachment are added to the attachments array instead of wrapping the mapped files inside an additional array.
                     filename: file.filename,
-                    path: path.join(__dirname, 'storage', file.filename)
-                })), embeddedImage
+                    path: path.join(__dirname, '../storage/', file.filename)
+                })),
+                embeddedImage
             ]
         }
 
