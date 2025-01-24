@@ -18,6 +18,13 @@ const mailSender = async (options, res) => {
             }
         })
 
+        // add an image in the body a embedded image (logo)
+        const embeddedImage = {
+            filename: 'uniware_logo.png',
+            path: path.join(__dirname, '/../assets/images/uniware_logo.png'),
+            cid: 'logo'
+        }
+
         // Send emails to the users
         const mail = {
             from: process.env.SMTP_MAIL,
