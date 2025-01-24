@@ -127,12 +127,21 @@ function Homepage() {
                                         <input type="text" name="mailSubject" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" placeholder="Add a subject" value={formData.mailSubject} onChange={handleChange} />
                                     </div>
                                 </div>
+
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Body</label>
                                         <textarea name="mailContent" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" value={formData.mailContent} onChange={handleChange} />
                                     </div>
                                 </div>
+
+                                <div className="space-y-2 mb-2">
+                                    <div>
+                                        <label className="text-black mb-2 block">Attachment</label>
+                                        <input type="file" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" multiple />
+                                    </div>
+                                </div>
+
                                 <div className="mt-6">
                                     <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium' disabled={isMailSendSuccessfully}>
                                         {/* toggle the btn based on status */}
