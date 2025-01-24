@@ -12,14 +12,29 @@ function Homepage() {
     const [formData, setFormData] = useState({
         mails: [],
         mailSubject: "",
-        mailContent: ""
+        mailContent: "",
+        attachments: []
     })
 
+    const [files, setFiles] = useState([])
+
+    console.log("files:", files)
+
+    files.forEach((files) => {
+        setFormData((prevFiles) => ({ ...prevFiles, attachments: files }))
+    })
+
+    const handleFileChange = (e) => {
+        const selectedFiles = Array.from(e.target.files);
+        setFiles(selectedFiles); // Set files as an array
+        console.log("selected files", selectedFiles);
+    };
+
     // Sync formData.mailIds with mails state
-    // The formData state stores the email IDs (mailIds), subject, and body, but the state for mailIds is not updated when the mails array changes. You need to update formData.mailIds whenever mails changes to keep everything in sync.
+    // The formData state stores the email IDs (mailIds), subject, and body, but the state for mailIds is not updated when the mails array changes. So we need to update formData.mailIds whenever mails changes to keep everything in sync.
     useEffect(() => {
-        setFormData((prevFormData) => ({ ...prevFormData, mails: mails }));
-    }, [mails]);
+        setFormData((prevFormData) => ({ ...prevFormData, mails: mails, attachments: files }));
+    }, [mails, files]);
 
     // Email validation regex pattern
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -79,6 +94,7 @@ function Homepage() {
         e.preventDefault()
         const isFormValidate = validateForm()
         if (isFormValidate === true) {
+            console.log("Form data:", formData)
             sendMail(formData)
             setMails([]);  // Reset mails after submission
             setFormData({
@@ -138,7 +154,7 @@ function Homepage() {
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Attachment</label>
-                                        <input type="file" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" multiple />
+                                        <input type="file" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" multiple onChange={handleFileChange} />
                                     </div>
                                 </div>
 
