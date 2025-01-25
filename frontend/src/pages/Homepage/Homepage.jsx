@@ -8,6 +8,7 @@ function Homepage() {
     const { isMailSendSuccessfully, sendMail } = mailControllerStore()
 
     const [mails, setMails] = useState([])
+    console.log("Mails:", mails)
 
     const [files, setFiles] = useState([])
     console.log("files:", files)
