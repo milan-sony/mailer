@@ -9,6 +9,9 @@ function Homepage() {
 
     const [mails, setMails] = useState([])
 
+    const [files, setFiles] = useState([])
+    console.log("files:", files)
+
     const [formData, setFormData] = useState({
         mails: [],
         mailSubject: "",
@@ -16,13 +19,9 @@ function Homepage() {
         attachments: []
     })
 
-    const [files, setFiles] = useState([])
-
-    console.log("files:", files)
-
-    files.forEach((files) => {
-        setFormData((prevFiles) => ({ ...prevFiles, attachments: files }))
-    })
+    // files.forEach((files) => {
+    //     setFormData((prevFiles) => ({ ...prevFiles, attachments: files }))
+    // })
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
@@ -96,11 +95,13 @@ function Homepage() {
         if (isFormValidate === true) {
             console.log("Form data:", formData)
             sendMail(formData)
-            setMails([]);  // Reset mails after submission
+            setMails([]) // Reset mails after submission
+            setFiles([]) // Reset files after submission
             setFormData({
                 mails: [],
                 mailSubject: "",
-                mailContent: ""
+                mailContent: "",
+                attachments: []
             });  // Reset form data
         }
     }
