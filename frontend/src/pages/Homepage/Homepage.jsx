@@ -116,7 +116,7 @@ function Homepage() {
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
                             <p className="text-black mb-4 text-sm font-Open-Sans"><b>From: uniwaretechnologies@gmail.com</b></p>
-                            <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
+                            <form autoComplete="off" noValidate onSubmit={handleFormSubmit} encType="multipart/form-data">
                                 <div className="space-y-2 mb-2">
                                     <label className="text-black mb-2 block">To: (Enter the mail id's)</label>
                                     <div className='bg-gray-100 max-h-40 overflow-y-auto rounded-md p-2'>
