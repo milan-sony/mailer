@@ -135,7 +135,7 @@ function Homepage() {
                                 </div>
 
                                 <div className="mt-6 mb-2 w-full flex justify-end">
-                                    <button type='submit' className='p-2 text-center flex justify-between text-white text-sm bg-gray-600 rounded hover:text-white hover:bg-black capitalize font-medium'><Upload className='size-5 mr-1' />upload file
+                                    <button type='submit' className='p-2 text-center flex justify-between text-white text-sm bg-gray-600 rounded hover:text-white hover:bg-black capitalize font-medium cursor-not-allowed' disabled><Upload className='size-5 mr-1' />upload file
                                     </button>
                                 </div>
 
