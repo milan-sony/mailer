@@ -4,46 +4,55 @@ import toast from 'react-hot-toast'
 import { mailControllerStore } from '../../store/mailControllerStore'
 
 function Homepage() {
-
     const { isMailSendSuccessfully, sendMail } = mailControllerStore()
 
     const [mails, setMails] = useState([])
-
-    const [formData, setFormData] = useState({
+    const [files, setFiles] = useState([])
+    const [formValueData, setFormValueData] = useState({
         mails: [],
         mailSubject: "",
         mailContent: ""
     })
 
-    // Sync formData.mailIds with mails state
-    // The formData state stores the email IDs (mailIds), subject, and body, but the state for mailIds is not updated when the mails array changes. You need to update formData.mailIds whenever mails changes to keep everything in sync.
+    // Sync form value data with mails and files state
     useEffect(() => {
-        setFormData((prevFormData) => ({ ...prevFormData, mails: mails }));
-    }, [mails]);
+        setFormValueData(prevFormData => ({
+            ...prevFormData,
+            mails: mails,
+            attachments: files
+        }))
+    }, [mails, files])
 
-    // Email validation regex pattern
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const handleChange = (e) => {
+        setFormValueData({ ...formValueData, [e.target.name]: e.target.value })
+    }
+
+    // Handle file change
+    const handleFileChange = (e) => {
+        setFiles(Array.from(e.target.files))
+    }
+
+    // // Email validation regex pattern
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 
     // Handle email input validation
     const handleEmail = (e) => {
-        if (e.key !== 'Enter') return
+        if (e.key !== 'Enter')
+            return
 
-        const value = e.target.value
+        const value = e.target.value.trim()
 
         // Check empty field
-        if (!value.trim()) {
+        if (!value)
             return toast.error("Please enter mail id's")
-        }
 
         // Check if email matches the regex pattern
-        if (!emailRegex.test(value)) {
-            return toast.error("Please enter a valid email address");
-        }
+        if (!emailRegex.test(value))
+            return toast.error("Please enter a valid email address")
 
         // Check duplicate email ids
-        if (mails.includes(value.trim())) {
-            return toast.error("This email ID is already added");
-        }
+        if (mails.includes(value))
+            return toast.error("This email ID is already added")
 
         setMails([...mails, value])
         e.target.value = ""
@@ -54,39 +63,49 @@ function Homepage() {
         setMails(mails.filter((el, i) => i !== index))
     }
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+    // Remove the files from the list
+    const removeFile = (index) => {
+        setFiles(files.filter((_, i) => i !== index)); // remove file by index
+    };
 
     const validateForm = () => {
-        const { mails, mailSubject, mailContent } = formData // destructure formdata
+        const { mails, mailSubject, mailContent } = formValueData
 
-        // Check for empty fields
-        if (!mails[0]) {
-            return toast.error("Please enter mail id's")
-        }
-        if (!mailSubject) {
-            return toast.error("Please add a subject")
-        }
-        if (!mailContent) {
-            return toast.error("Please enter the body content")
-        }
+        if (!mails.length) return toast.error("Please enter mail id's")
+        if (!mailSubject) return toast.error("Please add a subject")
+        if (!mailContent) return toast.error("Please enter the body content")
+
         return true
     }
 
-    // Form submit
-    const handleFormSubmit = (e) => {
+    // Handle form submit
+    const handleFormSubmit = async (e) => {
         e.preventDefault()
-        const isFormValidate = validateForm()
-        if (isFormValidate === true) {
-            sendMail(formData)
-            setMails([]);  // Reset mails after submission
-            setFormData({
-                mails: [],
-                mailSubject: "",
-                mailContent: ""
-            });  // Reset form data
+
+        const isFormValid = validateForm()
+        if (!isFormValid) return
+
+        const formDataObj = new FormData()
+
+        for (let file of files) {
+            formDataObj.append('attachments', file)
         }
+
+        formDataObj.append('mails', formValueData.mails)
+        formDataObj.append('mailSubject', formValueData.mailSubject)
+        formDataObj.append('mailContent', formValueData.mailContent)
+
+        // Send the mail
+        await sendMail(formDataObj)
+
+        // Reset states after submission
+        setMails([])
+        setFiles([])
+        setFormValueData({
+            mails: [],
+            mailSubject: "",
+            mailContent: "",
+        })
     }
 
     return (
@@ -98,7 +117,7 @@ function Homepage() {
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
                             <p className="text-black mb-4 text-sm font-Open-Sans"><b>From: uniwaretechnologies@gmail.com</b></p>
-                            <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
+                            <form autoComplete="off" noValidate onSubmit={handleFormSubmit} encType="multipart/form-data">
                                 <div className="space-y-2 mb-2">
                                     <label className="text-black mb-2 block">To: (Enter the mail id's)</label>
                                     <div className='bg-gray-100 max-h-40 overflow-y-auto rounded-md p-2'>
@@ -111,47 +130,89 @@ function Homepage() {
                                                     </div>
                                                 ))
                                             }
-                                            <input type="text" placeholder="Enter mail id's" className='outline-none border-none rounded-md bg-white p-1 text-black' onKeyDown={handleEmail} />
+                                            <input
+                                                type="text"
+                                                placeholder="Enter mail id's"
+                                                className='outline-none border-none rounded-md bg-white p-1 text-black'
+                                                onKeyDown={handleEmail}
+                                            />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="mt-6 mb-2 w-full flex justify-end">
-                                    <button type='submit' className='p-2 text-center flex justify-between text-white text-sm bg-gray-600 rounded hover:text-white hover:bg-black capitalize font-medium'><Upload className='size-5 mr-1' />upload file
+                                    <button type='submit' className='p-2 text-center flex justify-between text-white text-sm bg-gray-600 rounded hover:text-white hover:bg-black capitalize font-medium cursor-not-allowed' disabled>
+                                        <Upload className='size-5 mr-1' />upload file
                                     </button>
                                 </div>
 
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Subject</label>
-                                        <input type="text" name="mailSubject" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" placeholder="Add a subject" value={formData.mailSubject} onChange={handleChange} />
+                                        <input
+                                            type="text"
+                                            name="mailSubject"
+                                            className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200"
+                                            placeholder="Add a subject"
+                                            value={formValueData.mailSubject}
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Body</label>
-                                        <textarea name="mailContent" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20" placeholder="Type here" value={formData.mailContent} onChange={handleChange} />
+                                        <textarea
+                                            name="mailContent"
+                                            className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200 min-h-20"
+                                            placeholder="Type here"
+                                            value={formValueData.mailContent}
+                                            onChange={handleChange}
+                                        />
                                     </div>
+                                </div>
+
+                                <div className="mb-2 mt-2">
+                                    {
+                                        files.length > 0 && (
+                                            <div className='bg-gray-100 p-2 rounded-md'>
+                                                <p className="font-medium">Uploaded Files:</p>
+                                                <ul className="space-y-1">
+                                                    {files.map((file, index) => (
+                                                        <li key={index} className="flex justify-between items-center">
+                                                            <span>{file.name}</span>
+                                                            <button className="bg-red-500 text-white rounded-full px-2" onClick={() => removeFile(index)}>
+                                                                &times;
+                                                            </button>
+                                                            <img src={URL.createObjectURL(file)} width="50" alt={file.name} />
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )
+                                    }
                                 </div>
 
                                 <div className="space-y-2 mb-2">
                                     <div>
                                         <label className="text-black mb-2 block">Attachment</label>
-                                        <input type="file" className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200" multiple />
+                                        <input
+                                            type="file"
+                                            className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200"
+                                            multiple
+                                            onChange={handleFileChange}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="mt-6">
                                     <button type='submit' className='block w-full py-2 text-center text-white bg-gray-600 rounded hover:text-white hover:bg-black uppercase font-medium' disabled={isMailSendSuccessfully}>
-                                        {/* toggle the btn based on status */}
-                                        {
-                                            isMailSendSuccessfully ? (
-                                                <span className='animate-pulse'>Sending mail...</span>
-                                            ) : (
-                                                "Send mail"
-                                            )
-                                        }
+                                        {isMailSendSuccessfully ? (
+                                            <span className='animate-pulse'>Sending mail...</span>
+                                        ) : (
+                                            "Send mail"
+                                        )}
                                     </button>
                                 </div>
                             </form>
