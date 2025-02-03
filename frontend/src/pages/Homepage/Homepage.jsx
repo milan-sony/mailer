@@ -63,17 +63,18 @@ function Homepage() {
         setMails(mails.filter((el, i) => i !== index))
     }
 
-    // Remove the files from the list
-    const removeFile = (index) => {
-        setFiles(files.filter((_, i) => i !== index)); // remove file by index
-    };
-
+    // Form validation
     const validateForm = () => {
         const { mails, mailSubject, mailContent } = formValueData
 
-        if (!mails.length) return toast.error("Please enter mail id's")
-        if (!mailSubject) return toast.error("Please add a subject")
-        if (!mailContent) return toast.error("Please enter the body content")
+        if (!mails.length)
+            return toast.error("Please enter mail id's")
+
+        if (!mailSubject)
+            return toast.error("Please add a subject")
+
+        if (!mailContent)
+            return toast.error("Please enter the body content")
 
         return true
     }
@@ -171,27 +172,6 @@ function Homepage() {
                                             onChange={handleChange}
                                         />
                                     </div>
-                                </div>
-
-                                <div className="mb-2 mt-2">
-                                    {
-                                        files.length > 0 && (
-                                            <div className='bg-gray-100 p-2 rounded-md'>
-                                                <p className="font-medium">Uploaded Files:</p>
-                                                <ul className="space-y-1">
-                                                    {files.map((file, index) => (
-                                                        <li key={index} className="flex justify-between items-center">
-                                                            <span>{file.name}</span>
-                                                            <button className="bg-red-500 text-white rounded-full px-2" onClick={() => removeFile(index)}>
-                                                                &times;
-                                                            </button>
-                                                            <img src={URL.createObjectURL(file)} width="50" alt={file.name} />
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )
-                                    }
                                 </div>
 
                                 <div className="space-y-2 mb-2">
