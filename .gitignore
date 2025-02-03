@@ -27,3 +27,6 @@ dist-ssr
 
 storage/
 !storage/.gitkeep
+
+log/
+!log/.gitkeep
