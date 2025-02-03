@@ -25,11 +25,6 @@ const mailSender = async (options, res) => {
             cid: 'logo'
         }
 
-        console.log("mail Attachments:", options.mailAttachments)
-        console.log("dirName: ", __dirname)
-
-        console.log("Options:", options)
-
         // Send emails to the users
         const mail = {
             from: process.env.SMTP_MAIL,
