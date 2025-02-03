@@ -86,7 +86,7 @@ function Homepage() {
             formDataObj.append('attachments', file)
         }
 
-        formDataObj.append('mails', JSON.stringify(formValueData.mails))
+        formDataObj.append('mails', formValueData.mails)
         formDataObj.append('mailSubject', formValueData.mailSubject)
         formDataObj.append('mailContent', formValueData.mailContent)
 

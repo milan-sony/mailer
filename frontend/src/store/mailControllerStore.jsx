@@ -8,11 +8,7 @@ export const mailControllerStore = create((set) => ({
     sendMail: async (data) => {
         set({ isMailSendSuccessfully: true })
         try {
-            const res = await axiosInstance.post("/mail/sendmail", data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
+            const res = await axiosInstance.post("/mail/sendmail", data)
             if (res) {
                 return toast.success("Mail sent successfully")
             }
