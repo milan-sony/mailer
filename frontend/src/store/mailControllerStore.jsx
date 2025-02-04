@@ -27,7 +27,6 @@ export const mailControllerStore = create((set) => ({
         try {
             const res = await axiosInstance.get("/mail/clearstorage")
             if (res) {
-                console.log("Res", res)
                 return toast.success("Files deleted successfully")
             }
         } catch (error) {
