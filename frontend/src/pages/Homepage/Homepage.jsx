@@ -123,9 +123,9 @@ function Homepage() {
 
     return (
         <div className="w-full h-screen">
-            <div className="bg-slate-100">
+            <div className="bg-slate-100 dark:bg-black">
                 <div className='w-full h-screen'>
-                    <div className="contain pt-10">
+                    <div className="contain pt-10 pb-9 bg-slate-100 dark:bg-black">
                         <div className="bg-white max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
