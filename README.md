@@ -42,6 +42,8 @@ Setup environment veriables
 
 ```
 VITE_APP_API_URL = http://localhost:3000/api/v1
+
+VITE_MAIL_ID = yourname@domain.com
 ```
 
 Run the project
