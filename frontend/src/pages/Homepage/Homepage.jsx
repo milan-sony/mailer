@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Upload } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { mailControllerStore } from '../../store/mailControllerStore'
@@ -79,6 +79,18 @@ function Homepage() {
         return true
     }
 
+    // Ref object to reference the input element
+    const inputFile = useRef(null);
+
+    // Function to reset the input element
+    const handleReset = () => {
+        if (inputFile.current) {
+            inputFile.current.value = "";
+            inputFile.current.type = "text";
+            inputFile.current.type = "file";
+        }
+    };
+
     // Handle form submit
     const handleFormSubmit = async (e) => {
         e.preventDefault()
@@ -101,12 +113,12 @@ function Homepage() {
 
         // Reset states after submission
         setMails([])
-        setFiles([])
         setFormValueData({
             mails: [],
             mailSubject: "",
             mailContent: "",
         })
+        handleReset()
     }
 
     return (
@@ -182,6 +194,7 @@ function Homepage() {
                                             className="block w-full px-4 py-3 outline-none text-black font-normal text-sm rounded-md outline-gray-200"
                                             multiple
                                             onChange={handleFileChange}
+                                            ref={inputFile}
                                         />
                                     </div>
                                 </div>
