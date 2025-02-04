@@ -30,3 +30,4 @@ storage/
 
 log/
 !log/.gitkeep
+!log/MailReport.log
