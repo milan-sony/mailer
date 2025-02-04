@@ -1,10 +1,12 @@
 import nodemailer from "nodemailer"
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url'
+import fs from 'node:fs/promises'
+import { stringify } from "node:querystring"
 
 const mailSender = async (options, res) => {
     // Get the current directory of the module
-    const __filename = fileURLToPath(import.meta.url);
+    const __filename = fileURLToPath(import.meta.url)
     const __dirname = path.dirname(__filename)
 
     try {
@@ -43,10 +45,17 @@ const mailSender = async (options, res) => {
         if (mail) {
             console.log("\n✔️  Mail generated")
             await transporter.sendMail(mail)
-            console.log(`\n✔️  Mail send to: ${options.to}`)
+            console.log(`\n✔️  Mail sent to: ${options.to}`)
+            // Generate log report of the file
+            try {
+                let logReport = `📅 Date: ${new Date().toLocaleDateString()}\n⌚ Time: ${new Date().toLocaleTimeString()}\n📧 Mail sent to: ${options.to}`
+                await fs.appendFile(path.join(__dirname, "../log/MailReport.log"), logReport + "\n")
+            } catch (error) {
+                console.error("Error in generating log:", error.message)
+            }
             return res.status(200).json({
                 status: 200,
-                message: "Message generated and send successfully"
+                message: "Message generated and sent successfully"
             })
         }
 
