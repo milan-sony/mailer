@@ -49,7 +49,7 @@ const mailSender = async (options, res) => {
             // Generate log report of the file
             try {
                 let logReport = `📅 Date: ${new Date().toLocaleDateString()}\n⌚ Time: ${new Date().toLocaleTimeString()}\n📧 Mail sent to: ${options.to}`
-                await fs.appendFile(path.join(__dirname, "../report/MailReport.txt"), logReport + "\n" + "\n")
+                await fs.appendFile(path.join(__dirname, "../log/mailreport.log"), logReport + "\n" + "\n")
             } catch (error) {
                 console.error("Error in generating log:", error.message)
             }
