@@ -218,7 +218,7 @@ function Homepage() {
                             isStorageClearedSuccessfully ?
                                 <p className='text-center font-medium pt-2 animate-pulse dark:text-slate-400'>Deleting files...</p>
                                 :
-                                <p className='text-center font-medium pt-2 hover:text-red-500 dark:text-slate-400' onClick={clearFiles}>🗑️ Click here to delete the files in the storage folder !</p>
+                                <p className='text-center font-medium pt-2 hover:text-red-500 dark:text-slate-400 cursor-pointer' onClick={clearFiles}>🗑️ Click here to delete the files in the storage folder !</p>
                         }
                     </div>
                 </div>
