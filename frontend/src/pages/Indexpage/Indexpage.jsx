@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import mail from '../../../public/mailer.svg'
+import mail from '/mailer.svg'
 
 
 function Indexpage() {
