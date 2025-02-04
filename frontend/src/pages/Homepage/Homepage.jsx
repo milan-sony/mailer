@@ -117,7 +117,7 @@ function Homepage() {
                         <div className="bg-white max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
-                            <p className="text-black mb-4 text-sm font-Open-Sans"><b>From: uniwaretechnologies@gmail.com</b></p>
+                            <p className="text-black mb-4 text-sm font-Open-Sans"><b>From: {import.meta.env.VITE_MAIL_ID}</b></p>
                             <form autoComplete="off" noValidate onSubmit={handleFormSubmit} encType="multipart/form-data">
                                 <div className="space-y-2 mb-2">
                                     <label className="text-black mb-2 block">To: (Enter the mail id's)</label>
