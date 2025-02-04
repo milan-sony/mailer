@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { mailControllerStore } from '../../store/mailControllerStore'
 
 function Homepage() {
-    const { isMailSendSuccessfully, sendMail } = mailControllerStore()
+    const { isMailSendSuccessfully, sendMail, isStorageClearedSuccessfully, clearStorage } = mailControllerStore()
 
     const [mails, setMails] = useState([])
     const [files, setFiles] = useState([])
@@ -121,11 +121,15 @@ function Homepage() {
         handleReset()
     }
 
+    const clearFiles = () => {
+        clearStorage()
+    }
+
     return (
         <div className="w-full h-screen">
             <div className="bg-slate-100 dark:bg-black">
                 <div className='w-full h-screen'>
-                    <div className="contain pt-10 pb-9 bg-slate-100 dark:bg-black">
+                    <div className="contain pt-5 pb-5 bg-slate-100 dark:bg-black">
                         <div className="bg-white max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                             <h2 className="text-2xl uppercase font-black mb-1 font-Open-Sans text-black">Mailer</h2>
                             <p className="text-gray-600 mb-6 text-sm font-Open-Sans">Compose your mail !</p>
@@ -210,6 +214,12 @@ function Homepage() {
                                 </div>
                             </form>
                         </div>
+                        {
+                            isStorageClearedSuccessfully ?
+                                <p className='text-center font-medium pt-2 animate-pulse'>Deleting files...</p>
+                                :
+                                <p className='text-center font-medium pt-2 hover:text-red-500' onClick={clearFiles}>🗑️ Click here to delete the files in the storage folder !</p>
+                        }
                     </div>
                 </div>
             </div>
